@@ -48,7 +48,7 @@ int edid_from_monitor_range(MonitorMode *range, ModeLine *mode, char *edid)
 	edid[16] = 5;
 
 	// Year of manufacture
-	edid[17] = 2014 - 1999;
+	edid[17] = 2014 - 1990;
 
 	// EDID version and revision
 	edid[18] = 1;
