@@ -7,13 +7,17 @@ Basic config file example is in [extra/switchres.conf](extra/switchres.conf).
 
 
 ### Simple modeline generation
-`switchres --calc pacman`
-`switchres 384 288 60.61 --monitor d9800`
+```
+switchres --calc pacman
+switchres 384 288 60.61 --monitor d9800
+```
 
 
 ### Running games in MAME
-`switchres pacman --monitor cga`
-`switchres frogger --ff --redraw --nodoublescan --monitor d9200`
+```
+switchres pacman --monitor cga
+switchres frogger --ff --redraw --nodoublescan --monitor d9200
+```
 
 ##### ArcadeVGA in Windows 
 `switchres tron --resfile extra/ArcadeVGA.txt --resfile ~/modes.txt`
