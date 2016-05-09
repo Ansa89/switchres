@@ -1,7 +1,7 @@
 # Switchres
 Modeline generator engine and [MAME](https://github.com/mamedev/mame) resolution switcher.
 
-See output of `switchres -h` for best information about command line settings.
+See output of `switchres -h` for more info about command line options.
 
 Basic config file example is in [extra/switchres.conf](extra/switchres.conf).
 
