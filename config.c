@@ -195,7 +195,7 @@ int readResolutions(ConfigSettings *cs, ModeLine *mode, char *filename, ModeLine
         struct stat sb;
 	ModeLine modes[255];
 	int modecount = 0;
-	int i;
+	unsigned int i;
 
         if (!filename)
                 return 1;
@@ -388,7 +388,7 @@ int findBestMode(int checkvfreq, ModeLine *mode, ModeLine modes[MAX_MODELINES], 
 	return index;
 }
 
-int GetMameInfo(ConfigSettings *cs, GameInfo *game, char *mamearg, char *result) {
+int GetMameInfo(ConfigSettings *cs, char *mamearg, char *result) {
         int c1=0;
         FILE *pi;
         char temp[100000]={'\x00'};

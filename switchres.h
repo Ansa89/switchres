@@ -26,7 +26,6 @@
 #endif
 
 #define MAX_MODES 10
-#define MAX_RANGES 10
 #define MAX_MODELINES 512
 #define MONITOR_TYPES "[cga ega vga multi ntsc pal h9110 d9200 d9800]"
 #define STANDARD_CRT_ASPECT 4.0/3.0
@@ -223,7 +222,7 @@ int readConfig(ConfigSettings *cs, char *filename);
 int readIni(ConfigSettings *cs, GameInfo *game, char *filename);
 int readResolutions(ConfigSettings *cs, ModeLine *mode, char *filename, ModeLine *bestmode);
 int readSoft15KhzResolutions(ConfigSettings *cs, ModeLine *mode, ModeLine *bestMode);
-int GetMameInfo(ConfigSettings *cs, GameInfo *game, char *mamearg, char *result);
+int GetMameInfo(ConfigSettings *cs, char *mamearg, char *result);
 
 /* XML File reading */
 int GetGameXML(ConfigSettings *cs, GameInfo *game, char *emulator);
@@ -231,7 +230,8 @@ int GetGameXML(ConfigSettings *cs, GameInfo *game, char *emulator);
 /* Xrandr commands */
 int GetXrandrDisplay(ConfigSettings *cs, ModeLine *defaultMode);
 int SetXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode);
-int DelXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode, int cpid);
+//int DelXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode, int cpid);
+int DelXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode);
 
 /* windows registry */
 #ifdef __CYGWIN__

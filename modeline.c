@@ -416,8 +416,8 @@ int ResVirtualize(ModeLine *mode, MonitorMode *monitor) {
 			(monitor->HfreqMax - 50) / 
 				(mode->vactive + VBlankLines * interlace) * 
 					interlace;
-		if (vfreqlimit >= mode->vfreq) 
-			goto ValidYres;
+		if (vfreqlimit >= mode->vfreq)
+			break;
 	}
 
 	if (!vfreqlimit)
@@ -425,7 +425,6 @@ int ResVirtualize(ModeLine *mode, MonitorMode *monitor) {
 
 	mode->vfreq = vfreqlimit;
 
-	ValidYres:
 	xresNew = Normalize(((4.0/3.0) * mode->vactive), 8);
 	if (mode->hactive < xresNew || interlace < 2)
 		mode->hactive = xresNew;

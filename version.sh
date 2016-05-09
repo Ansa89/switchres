@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VERSION="1"
-VER="52"
+VER="53"
 DATE=`date`
 SYSTEM=`uname -a`
 MACHINE=`uname -m`

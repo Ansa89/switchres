@@ -49,7 +49,7 @@ int get_monitor_specs(ConfigSettings *cs, MonitorRange *range)
 {
 	char default_monitor[] = "generic_15";
 
-	memset(&range[0], 0, sizeof(struct MonitorRange) * MAX_RANGES);
+	memset(&range[0], 0, sizeof(struct MonitorRange) * MAX_MODES);
 
 	if (!strcmp(cs->monitor, "custom"))
 	{

@@ -18,12 +18,14 @@
 #include "switchres.h"
 #include "version.h"
 
+void clean_up(MonitorMode *monitorModes, ConfigSettings *cs);
 int usage(void);
 
 FILE *logfd = NULL;
 
 int main(int argc, char **argv) {
 	int i;
+	unsigned int j;
 	char *s;
 	int badarg = 0;
 	ModeLine defaultMode;
@@ -97,7 +99,7 @@ int main(int argc, char **argv) {
 
 	memset(&bestMode, 0, sizeof(struct ModeLine));
 	memset(&defaultMode, 0, sizeof(struct ModeLine));
-	memset(&monitorModes[0], 0, sizeof(struct MonitorMode));
+	memset(monitorModes, 0, sizeof(struct MonitorMode)*MAX_MODES);
 	bestMode.depth = 32;
 
 	for(i = 1; i < argc; i++) {
@@ -109,11 +111,13 @@ int main(int argc, char **argv) {
 					++s;
 					if (!strcmp(s, "help")) {
 						usage();
-						goto Game_Over;
+						clean_up(monitorModes,cs);
+						return 0;
 					} else if (!strcmp(s, "version")) {
 						fprintf(stdout, "SwitchRes Version %s by Chris Kennedy (C) 2010\n",
 							VERSION);
-						goto Game_Over;
+						clean_up(monitorModes,cs);
+						return 0;
 					} else if (!strcmp(s, "verbose") || !strcmp(s, "v")) {
 						cs->verbose++;
 					} else if (!strcmp(s, "test")) {
@@ -158,7 +162,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with vectorwidth\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "vectorheight")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -168,7 +173,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with vectorheight\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "rom")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -178,7 +184,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with ROM\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "emulator")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -188,7 +195,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with emulator\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range0")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -198,7 +206,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range1")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -208,7 +217,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range2")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -218,7 +228,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range3")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -228,7 +239,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range4")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -238,7 +250,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range5")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -248,7 +261,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range6")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -258,7 +272,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range7")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -268,7 +283,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range8")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -278,7 +294,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "crt_range9")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -288,7 +305,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "lcd_range")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -298,7 +316,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor range\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "monitor")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -308,7 +327,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with monitor mode\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "mo")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -318,7 +338,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with -mo\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "aspect")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -328,7 +349,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with -aspect\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "dcalign")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -338,7 +360,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with -dcalign\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "ymin")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -348,7 +371,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with -ymin\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "logfile")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -364,7 +388,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with logfile\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "modesfile")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -374,7 +399,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with modesfile\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "resfile")) {
 						if ((i+1) < argc && *(s = argv[i+1]) != '-') {
@@ -386,7 +412,8 @@ int main(int argc, char **argv) {
 							usage();
 							sr_fprintf(stderr,
 								"Error with resfile\n");
-							goto Game_Over;
+							clean_up(monitorModes,cs);
+							return 0;
 						}
 					} else if (!strcmp(s, "args")) {
 						end_of_args = 1;
@@ -395,12 +422,14 @@ int main(int argc, char **argv) {
 						sr_fprintf(stderr,
 							"Error with arg %s\n",
 							s);
-						goto Game_Over;
+						clean_up(monitorModes,cs);
+						return 0;
 					}
 					break;
 				case 'h':
 					usage();
-					goto Game_Over;
+					clean_up(monitorModes,cs);
+					return 0;
 				case 'v':
 					cs->verbose++;
 					break;
@@ -483,7 +512,8 @@ int main(int argc, char **argv) {
 	} else if (badarg || argc == 1 || (!strcmp(gameInfo.name, "") && !gameInfo.width)) {
 		usage();
 		sr_fprintf(stderr, "Error with command line args\n");
-		goto Game_Over;
+		clean_up(monitorModes,cs);
+		return 0;
 	}
 
 	/* Check emulator names */
@@ -501,8 +531,8 @@ int main(int argc, char **argv) {
 	}
 
 	/* change game name to lower case */
-	for (i = 0; i < strlen(gameInfo.name); i++)
-		gameInfo.name[i] = (char)tolower((int)gameInfo.name[i]);
+	for (j = 0; j < strlen(gameInfo.name); j++)
+		gameInfo.name[j] = (char)tolower((int)gameInfo.name[j]);
 
 	/* Get game XML */
 	if (strcmp(gameInfo.name, "")) {
@@ -534,7 +564,7 @@ int main(int argc, char **argv) {
 	defaultMode.vfreq = 60.00;
 
 	/* Get mame version */
-	if ((cs->is_mame || cs->is_mess) && !GetMameInfo(cs, &gameInfo, "-h", modeline)) {
+	if ((cs->is_mame || cs->is_mess) && !GetMameInfo(cs, "-h", modeline)) {
 		sprintf(mame_version, "%c%c%c",
 		 	modeline[12], modeline[13], modeline[14]);
 		sscanf(mame_version, "%d", &cs->version);
@@ -543,7 +573,7 @@ int main(int argc, char **argv) {
 	}
 
 	/* Mame hacks and config settings */
-	if ((cs->is_mame || cs->is_mess) && !GetMameInfo(cs, &gameInfo, "-showconfig", modeline)) {
+	if ((cs->is_mame || cs->is_mess) && !GetMameInfo(cs, "-showconfig", modeline)) {
 		if (strstr(modeline, "cleanstretch"))
 			cs->cleanstretch = 1;
 		if (strstr(modeline, "frogger") ||
@@ -652,7 +682,8 @@ int main(int argc, char **argv) {
   				fclose (p_edid_file);
   			}
 		}
-		goto Game_Over;
+		clean_up(monitorModes,cs);
+		return 0;
 	}
 
 	/* if given input resolution files find the best match */
@@ -942,7 +973,7 @@ int main(int argc, char **argv) {
 #ifdef SYS_LINUX
 	if (cs->switchres && !cs->resfilecount && !test_mode) {
 		/* Remove modeline with Xrandr */
-		DelXrandrDisplay(cs, monitorMode, &defaultMode, cpid);
+		DelXrandrDisplay(cs, monitorMode, &defaultMode);
 	}
 #endif
 #ifdef __CYGWIN__
@@ -955,7 +986,12 @@ int main(int argc, char **argv) {
 #endif
 
 	/* Free things and exit */
-	Game_Over:
+	clean_up(monitorModes,cs);
+	return 0;
+}
+
+void clean_up(MonitorMode *monitorModes, ConfigSettings *cs) {
+	int i;
 	for (i = 0 ; i < MAX_MODES; i++)
 		if (monitorModes[i].ModeLine)
 			free(monitorModes[i].ModeLine);
@@ -965,7 +1001,6 @@ int main(int argc, char **argv) {
 			fclose(cs->logfd);
 		free(cs);
 	}
-	return 0;
 }
 
 int usage(void) {

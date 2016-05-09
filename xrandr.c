@@ -69,7 +69,8 @@ int SetXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *def
 	return 0;
 }
 
-int DelXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode, int cpid) {
+//int DelXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode, int cpid) {
+int DelXrandrDisplay(ConfigSettings *cs, MonitorMode *monitorMode, ModeLine *defaultMode) {
         char cmd[64*1024]={'\x00'};
         char *cmdptr = cmd;
 
