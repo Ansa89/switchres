@@ -67,8 +67,15 @@ int get_monitor_specs(ConfigSettings *cs, MonitorRange *range)
 	else if (!strcmp(cs->monitor, "lcd"))
 		fill_lcd_range(&range[0],cs->lcd_range);
 
-	else if (set_monitor_preset(cs->monitor, range) == 0)
+	else if (strlen(cs->monitor) == 0) {
+		sr_fprintf(stderr, "SwitchRes: Monitor type not specified. Using \"%s\"\n", default_monitor);
 		set_monitor_preset(default_monitor, range);
+	}
+
+	else if (set_monitor_preset(cs->monitor, range) == 0) {
+		sr_fprintf(stderr, "SwitchRes: Monitor type unknown: \"%s\". Using \"%s\"\n", cs->monitor, default_monitor);
+		set_monitor_preset(default_monitor, range);
+	}
 
 	return 0;
 }
@@ -402,7 +409,7 @@ int set_monitor_preset(char *type, MonitorRange *range)
 		return fill_vesa_gtf(&range[0], type);
 	}
 
-	sr_fprintf(stderr, "SwitchRes: Monitor type unknown: %s\n", type);
+	// Unknown monitor
 	return 0;
 }
 
