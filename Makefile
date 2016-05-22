@@ -7,7 +7,7 @@ OBJECTS = $(SOURCES:.c=.o)
 DEPS = libxml-2.0
 
 CFLAGS = -O3 -Wall -Wextra
-CFLAGS += -D_FILE_OFFSET_BITS=64 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE
+CFLAGS += -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE
 CFLAGS += $(shell pkg-config --cflags $(DEPS))
 LDFLAGS = -lm $(shell pkg-config --libs $(DEPS))
 
