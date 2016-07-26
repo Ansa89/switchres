@@ -7,9 +7,9 @@ SYSTEM=$(uname -a)
 MACHINE=$(uname -m)
 OS=$(uname)
 
-if [[ -d ".git" ]] || [[ -d "../../.git" ]]; then
+if [ -d ".git" -o -d "../../.git" ]; then
     REV="${REV}~"
-    if git status | grep -q "modified:" &>/dev/null ; then
+    if git status | grep -q "modified:" ; then
         REV="${REV}M"
     fi
     REV="${REV}$(git rev-list HEAD -n 1 | head -c 7)"
