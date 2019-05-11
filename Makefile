@@ -37,7 +37,7 @@ version.h: version.sh
 
 switchres: $(OBJECTS) $(INCLUDES)
 	@echo "  LD    $@"
-	@$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	@$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 install: switchres
 	install -D -m0755 switchres $(BINDIR)/switchres
